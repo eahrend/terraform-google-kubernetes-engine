@@ -98,3 +98,11 @@ resource "google_project_iam_member" "cluster_service_account-host-network-user"
   role    = "roles/compute.networkUser"
   member  = "serviceAccount:${google_service_account.cluster_service_account[0].email}"
 }
+resource "google_project_iam_member" "cluster_service_account-host-service-agent-user" {
+  count   = var.create_service_account ? 1 : 0
+  project = var.network_project_id
+  role    = "roles/container.hostServiceAgentUser"
+  member  = "serviceAccount:${google_service_account.cluster_service_account[0].email}"
+}   
+   
+   
