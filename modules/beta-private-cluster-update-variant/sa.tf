@@ -84,3 +84,17 @@ resource "google_project_iam_member" "cluster_service_account-artifact-registry"
   role     = "roles/artifactregistry.reader"
   member   = "serviceAccount:${google_service_account.cluster_service_account[0].email}"
 }
+
+resource "google_project_iam_member" "cluster_service_account-host-compute-security-admin" {
+  count   = var.create_service_account ? 1 : 0
+  project = var.network_project_id
+  role    = "roles/compute.securityAdmin"
+  member  = "serviceAccount:${google_service_account.cluster_service_account[0].email}"
+}
+   
+resource "google_project_iam_member" "cluster_service_account-host-network-user" {
+  count   = var.create_service_account ? 1 : 0
+  project = var.network_project_id
+  role    = "roles/compute.networkUser"
+  member  = "serviceAccount:${google_service_account.cluster_service_account[0].email}"
+}
